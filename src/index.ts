@@ -3,10 +3,14 @@ import express, { Request, Response } from 'express';
 import router from './routes/router';
 import mongoose from 'mongoose';
 
+const dotenv = require('dotenv');
+dotenv.config();
+const mongoURI: string = `${process.env.MONGODB_URI}` || "";
+ 
 const cors = require('cors');
 const app = express();
 const PORT: number = 3000;
-const mongoURI: string = "mongodb+srv://romik:l5BSwPrYVn9AxPkr@mongodbexercises.sstxokq.mongodb.net/Epicure";
+
 
 app.use(cors({
   origin: "*",
