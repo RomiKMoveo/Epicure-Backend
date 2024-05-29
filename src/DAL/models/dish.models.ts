@@ -4,7 +4,6 @@ import { IconMeaning } from "../../utils/IconMeaning";
 import { IRestaurant } from "./restaurant.models";
 
 export interface IDish extends Document {
-  id: Schema.Types.ObjectId;
   title: string;
   image: string;
   price: string;
@@ -16,12 +15,11 @@ export interface IDish extends Document {
 }
 
 const DishSchema = new Schema({
-  id: {type: Schema.Types.ObjectId, required: true },
   title: { type: String, required: true },
   image: { type: String, required: true},
   price: { type: Number, required: true },
   ingredients: { type: String, required: true},
-  tag: { type: String, enum: Object.values(IconMeaning), required: true },
+  tag: { type: String, enum: Object.values(IconMeaning)},
   restaurant: { type: Schema.Types.ObjectId, ref: 'Restaurant' },
   isSignature: { type: Boolean, default:false}
 });

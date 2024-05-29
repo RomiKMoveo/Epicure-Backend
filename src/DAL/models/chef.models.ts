@@ -2,16 +2,14 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 import { IRestaurant } from "./restaurant.models";
 
 export interface IChef extends Document {
-  id: Schema.Types.ObjectId;
   title: string;
   image: string;
   description: string;
-  restaurants?: IRestaurant[];
-  chefOfTheWeek?: Boolean;
+  restaurants: IRestaurant[];
+  chefOfTheWeek: boolean;
 }
 
 const ChefSchema = new mongoose.Schema({
-  id: {type: Schema.Types.ObjectId, required: true },
   title: { type: String, required: true },
   image: { type: String, required: true },
   description: { type: String, required: true },

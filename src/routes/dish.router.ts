@@ -1,10 +1,14 @@
 import express from 'express';
-import { getAllDishes } from '../controllers/dish.controller';
+import * as DishController from '../controllers/dish.controller';
 
 const DishRouter = express.Router();
 
 
-DishRouter.get('/', getAllDishes);
-
+DishRouter.get('/', DishController.getAllDishes);
+DishRouter.get('/byName/:title', DishController.getDishByName);
+DishRouter.get('/byId/:id', DishController.getDishById);
+DishRouter.post('/', DishController.addNewDish);
+DishRouter.delete('/:id', DishController.deleteDishById);
+DishRouter.put('/:id', DishController.updateDishById);
 
 export default DishRouter;
