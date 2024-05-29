@@ -4,7 +4,10 @@ import { ChefModel } from './models/chef.models';
 export const getAllChefs = async () => {
     try {
         const chefs = await ChefModel.find()
-            .populate('restaurants')
+            .populate({
+                path: 'restaurant',
+                select: 'title image'
+            })
             .exec();
         return chefs;
         } catch (error: any) {
