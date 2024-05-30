@@ -19,6 +19,22 @@ export const getAllDishes = async () => {
         }
 };
 
+export const getSignatureDishes = async () => {
+    try {
+        const dishes = await DishModel.find({ isSignature: true })
+            .populate({
+                path: 'restaurant',
+                select: 'title' 
+            })
+            .exec();
+        return dishes;
+        } catch (error: any) {
+            console.log(error);
+            throw new Error(error.message);
+            
+        }
+};
+
 export const getDishByName = async (title: string) => {
     try {
         const caseInsensitiveName = new RegExp(title, 'i'); 

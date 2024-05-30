@@ -8,8 +8,5 @@ const router = express.Router();
 router.use('/chef', chefRouter);
 router.use('/dish', dishRouter);
 router.use('/restaurant', restaurantRouter);
-//router.use('/search', searchBarRouter)
-
-
 
 export default router;

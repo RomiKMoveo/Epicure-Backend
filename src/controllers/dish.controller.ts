@@ -10,6 +10,15 @@ export const getAllDishes = async (req: Request, res: Response) => {
     }
 };
 
+export const getSignatureDishes = async (req: Request, res: Response) => {
+    try{
+        let dishes = await DishHandler.getSignatureDishes();
+        res.json(dishes);
+    } catch (error: any) {
+        res.status(500).json({ error });
+    }
+};
+
 export const getDishByName = async (req: Request, res: Response) => {
     try {
         const dish = await DishHandler.getDishByName(req.params.title);

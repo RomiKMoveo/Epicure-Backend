@@ -85,7 +85,7 @@ export const deleteChefById = async (id: string) => {
 
 export const getChefOfTheWeek = async () => {
     try {
-        const chefOfTheWeek = await ChefModel.findOne({ chefOfTheWeek: true })
+        const chefOfTheWeek = await ChefModel.findOne({ chefOfTheWeek: true }) 
         .populate({
             path: 'restaurants',
             select: 'title image'
@@ -108,7 +108,6 @@ export const updateChefOfTheWeek = async ( id: string) => {
             { chefOfTheWeek: true },
             { new: true }
         )
-            .populate('restaurants')
             .exec();
         return chefOfTheWeekNew;
     } catch (error: any) {

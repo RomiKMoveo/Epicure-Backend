@@ -69,3 +69,7 @@ export const deleteRestaurantById = async (req: Request, res: Response) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export function getSignatureDishes(arg0: string, getSignatureDishes: any) {
+    throw new Error('Function not implemented.');
+}

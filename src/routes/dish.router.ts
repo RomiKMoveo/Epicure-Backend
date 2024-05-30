@@ -5,6 +5,7 @@ const DishRouter = express.Router();
 
 
 DishRouter.get('/', DishController.getAllDishes);
+DishRouter.get('/signature', DishController.getSignatureDishes);
 DishRouter.get('/byName/:title', DishController.getDishByName);
 DishRouter.get('/byId/:id', DishController.getDishById);
 DishRouter.post('/', DishController.addNewDish);

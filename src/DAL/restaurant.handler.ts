@@ -22,11 +22,6 @@ export const getAllRestaurants = async () => {
 export const getPopularRestaurants = async () => {
     try {
         const popularRestaurants = await RestaurantModel.find({ isPopular: true })
-            .populate({
-                path: 'chef',
-                select: 'title' 
-            })
-            .populate('dishes')
             .exec();
         return popularRestaurants;
         } catch (error: any) {
