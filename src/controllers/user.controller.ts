@@ -12,17 +12,17 @@ export const authenticateUser = async (req: Request, res: Response) => {
     const results = await UserHandler.authenticateUser(email, password);
     if (results.error) err(res, results.error, results.code);
     else {
-      res.cookie("refreshToken", results.success.refreshToken, {
+      res.cookie("token", results.success.token, {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       }); // 7 days
   
       const user = {
-        firstName: results.success.firstName,
-        lastName: results.success.lastName,
+        name: results.success.name,
+        surname: results.success.surname,
         email: results.success.email,
         _id: results.success._id,
-        token: results.success.accessToken,
+        token: results.success.token,
       };
       ok(res, { user });
     }

@@ -27,7 +27,7 @@ export const authenticateUser = async ( email: string, password: string ): Promi
         error: new Error("Please check if email or passowrd is correct."),
       };
 
-      const refreshToken = jwt.sign({ _id: user._id }, auth.jwtSecret, {
+      const token = jwt.sign({ _id: user._id }, auth.jwtSecret, {
         expiresIn: "1w",
       });
   
@@ -36,22 +36,18 @@ export const authenticateUser = async ( email: string, password: string ): Promi
   
       await TokenModel.create({
         userId: user._id,
-        token: refreshToken,
+        token: token,
         expiredAt: date,
       });
       console.log("token expires at:", date);
   
-      const accessToken = jwt.sign({ _id: user._id }, auth.jwtSecret, {
-        expiresIn: "10s",
-      });
       return {
         success: {
           name: user.name,
           surname: user.surname,
           email: user.email,
           _id: user._id,
-          accessToken,
-          refreshToken,
+          token: token
         },
       };
     } catch (error: any) {

@@ -10,12 +10,7 @@ const CORS_CONFIG = {
   credentials: true, //included credentials as true
 };
 
-const S3_CONFIG = {
-  region: process.env.AWS_BUCKET_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  bucketName: process.env.AWS_BUCKET_NAME,
-};
+
 
 const MONGO_OPTIONS = {
   useUnifiedTopology: true,
@@ -53,7 +48,6 @@ const config = {
   jwtSecret: JWT_SECRET,
   mongo: MONGO,
   server: SERVER,
-  s3: S3_CONFIG,
 };
 
 export default config;
