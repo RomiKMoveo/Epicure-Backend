@@ -11,5 +11,4 @@ restaurantRouter.post('/', RestaurantController.addNewRestaurant);
 restaurantRouter.delete('/:id', RestaurantController.deleteRestaurantById);
 restaurantRouter.put('/:id', RestaurantController.updateRestaurantById);
 
-
 export default restaurantRouter;

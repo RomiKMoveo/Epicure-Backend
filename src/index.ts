@@ -3,8 +3,7 @@ import express, { Request, Response } from 'express';
 import router from './routes/router';
 import mongoose from 'mongoose';
 
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 const mongoURI: string = `${process.env.MONGODB_URI}` || "";
  
 const cors = require('cors');

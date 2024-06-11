@@ -9,7 +9,10 @@ export const getAllRestaurants = async () => {
                 path: 'chef',
                 select: 'title' 
             })
-            .populate('dishes')
+            .populate({
+                path: 'dishes',
+                select: 'title'
+            })
             .exec();
         return restaurants;
         } catch (error: any) {

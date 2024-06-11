@@ -9,7 +9,7 @@ export interface IDish extends Document {
   price: string;
   ingredients: String;
   tag: IconMeaning,
-  restaurant?: IRestaurant;
+  restaurant: IRestaurant;
   isSignature: Boolean;
 
 }

@@ -1,11 +1,13 @@
 import mongoose, { Schema, Document, Model, } from "mongoose";
+import { IChef } from "./chef.models";
+import { IDish } from "./dish.models";
 
 export interface IRestaurant extends Document {
   title: string;
   image: string;
   stars: number;
-  chef: Schema.Types.ObjectId;
-  dishes: Schema.Types.ObjectId[];
+  chef: IChef;
+  dishes: IDish[];
   isPopular: boolean;
 }
 
