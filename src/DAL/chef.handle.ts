@@ -54,6 +54,10 @@ export const addNewChef = async (chefData: any) => {
     try {
         const newChef = new ChefModel({ ...chefData });
         const newChefSaved = await newChef.save();
+
+        if (newChefSaved.chefOfTheWeek) {
+            await updateChefOfTheWeek(newChefSaved.id);
+        }
         return newChefSaved; 
     } catch (error: any) {
         throw new Error(error.message);
@@ -69,6 +73,9 @@ export const updateChefById = async (chefData: any, id: string) => {
               throw new Error("chef wasn't found");
             }
             
+            if (chefToUpdate.chefOfTheWeek) {
+                await updateChefOfTheWeek(chefToUpdate.id);
+            }
     } catch (error: any) {
         throw new Error(error.message);
     }
@@ -96,9 +103,10 @@ export const getChefOfTheWeek = async () => {
     }
 };
 
-export const updateChefOfTheWeek = async ( id: string) => {
+
+export const updateChefOfTheWeek = async ( id: string ) => {
     try {
-        const chefOfTheWeekOld  = await getChefOfTheWeek();
+        const chefOfTheWeekOld  = await getOldChefOfTheWeek(id);
         if (chefOfTheWeekOld) {
             await updateChefById({ chefOfTheWeek: false }, chefOfTheWeekOld.id)
         }
@@ -110,6 +118,22 @@ export const updateChefOfTheWeek = async ( id: string) => {
         )
             .exec();
         return chefOfTheWeekNew;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+};
+
+const getOldChefOfTheWeek = async (id: string) => {
+    try {
+        const chefOfTheWeek = await ChefModel.findOne({ 
+            chefOfTheWeek: true, 
+            _id: { $ne: id } 
+        })
+        .populate({
+            path: 'restaurants',
+            select: 'title image'
+        });
+        return chefOfTheWeek;
     } catch (error: any) {
         throw new Error(error.message);
     }

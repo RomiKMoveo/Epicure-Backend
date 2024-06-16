@@ -1,38 +1,62 @@
-import mongoose, { Schema, Document, Model, } from "mongoose";
-import { UserRole } from "../../utils/UserRole";
+import mongoose, { Model } from "mongoose";
+import { hash } from "bcrypt";
+import { compare } from "bcrypt";
 
-export interface IUser extends Document {
+export interface IUser {
   name: string;
-  surname: string
-  email: string;
+  surname: string;
   password: string;
-  role: UserRole;
+  email: string;
+  role: string;
 }
 
-const UserSchema: Schema = new Schema({
-  name: { type: String, required: true },
-  surname: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, enum: Object.values(UserRole), default: UserRole.USER, required: true },
-  token: { type: String }
+interface UserMethods {
+  isValidPassword: (password: string) => Promise<boolean>;
+}
+type UserModel = Model<IUser, {}, UserMethods>;
+
+const UserSchema = new mongoose.Schema<IUser, UserModel, UserMethods>({
+  name: {
+    type: String,
+    required: true,
+  },
+  surname: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
 });
 
-// UserSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     next();
-//   }
+UserSchema.pre("save", async function (next) {
+  const hashedPassword = await hash(this.password, 10);
+  this.password = hashedPassword;
 
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-// });
+  next();
+});
 
-// UserSchema.methods.comparePassword = async function (enteredPassword: string) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// };
+UserSchema.pre("save", async function (next) {
+  const hashedPassword = await hash(this.password, 10);
+  this.password = hashedPassword;
 
-// UserSchema.methods.createJWT = function () {
-//   return 1
-// };
+  next();
+});
 
-export const UserModel: Model<IUser> = mongoose.model<IUser>('User', UserSchema);
+UserSchema.methods.isValidPassword = async function (password: string) {
+  const isValid = await compare(password, this.password);
+  return isValid;
+};
+
+const User = mongoose.model("User", UserSchema);
+
+export default User;
