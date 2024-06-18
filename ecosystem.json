@@ -1,0 +1,28 @@
+{
+    "apps": [
+      {
+        "name": "EpicureBackend",
+        "script": "./server.js",
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    ],
+    "deploy": {
+      "staging": {
+        "key": "~/Downloads/epicure-alex.pem",
+        "user": "ubuntu",
+        "host": ["ec2-16-171-161-251.eu-north-1.compute.amazonaws.com/"],
+        "ref": "origin/develop",
+        "repo": "git@github.com:MoveoTech/BlankProject.git",
+        "path": "/home/ubuntu/Epicure/Server",
+        "ssh_options": "StrictHostKeyChecking=no",
+        "post-deploy": "mkdir -p logs && npm install && pm2 reload ecosystem.json --env staging",
+        "pre-deploy-local": "echo 'Deploying code to servers'",
+        "env": {
+          "NODE_ENV": "staging"
+        }
+      }
+    }
+  }
+  
