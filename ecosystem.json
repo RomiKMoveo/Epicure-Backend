@@ -20,7 +20,7 @@
             "pre-deploy-local": "echo 'Deploying code to servers'",
             "env": {
                 "NODE_ENV": "staging",  
-                "Mongo_DB_URL_Connection": "mongodb+srv://romik:l5BSwPrYVn9AxPkr@mongodbexercises.sstxokq.mongodb.net/Epicure?retryWrites=true&w=majority"
+                "Mongo_DB_URL_Connection": "mongodb+srv://romik:l5BSwPrYVn9AxPkr@mongodbexercises.sstxokq.mongodb.net/Epicure"
             }
         }
     }
