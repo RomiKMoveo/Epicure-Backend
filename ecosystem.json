@@ -7,7 +7,7 @@
     ],
     "deploy": {
         "staging": {
-            "key": "/home/ubuntu/.ssh/epicure-prod.pem",
+            "key": "/home/ubuntu/.ssh/EC2Epicure.pem",
             "user": "ubuntu",
             "host": [
                 "ec2-16-171-161-251.eu-north-1.compute.amazonaws.com"
