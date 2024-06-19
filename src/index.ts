@@ -3,7 +3,8 @@ import express, { Request, Response } from 'express';
 import cookieParser from 'cookie-parser';
 import router from './routes/router';
 import mongoose from 'mongoose';
-import auth from './utils/auth';
+import auth from './middleeware/auth';
+
 const { expressjwt } = require("express-jwt");
 
 require('dotenv').config();
@@ -35,16 +36,17 @@ app.use(cors({
 
 // comment out this line if you want to bypass JWT check during development
 // When client attaches "bearer token" , expressJwt verifies it and if it is authenticated it will
-app.use(
-  expressjwt({
-    secret: auth.jwtSecret,
-    algorithms: ["HS256"],
-  }).unless({
-    path: [
-      "/api/userAuth/login/",
-    ],
-  })
-);
+// app.use(
+//   expressjwt({
+//     secret: auth.jwtSecret,
+//     algorithms: ["HS256"],
+//   }).unless({
+//     path: [
+//       "/api/userAuth/",
+//       "/api/restaurant/"
+//     ],
+//   })
+// );
 
 //==========================================================
 //                     ROUTERS
