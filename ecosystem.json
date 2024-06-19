@@ -1,26 +1,27 @@
 {
-"apps": [
-        {
-            "name": "Epicure-Backend",
-            "script": "./index.js"
-        }
-    ],
-    "deploy": {
-        "staging": {
-            "key": "/home/ubuntu/.ssh/EC2Epicure.pem",
-            "user": "ubuntu",
-            "host": [
-                "ec2-16-171-161-251.eu-north-1.compute.amazonaws.com"
-            ],
-            "ref": "origin/dev",
-            "repo": "git@github.com:RomiKMoveo/Epicure-Backend.git",
-            "path": "/home/ubuntu/epicure/server/Epicure-Backend",
-            "ssh_options": "StrictHostKeyChecking=no",
-            "pre-deploy-local": "echo 'Deploying code to servers'",
-            "env": {
-                "NODE_ENV": "staging",  
-                "Mongo_DB_URL_Connection": "mongodb+srv://romik:l5BSwPrYVn9AxPkr@mongodbexercises.sstxokq.mongodb.net/Epicure"
-            }
-        }
+  "apps": [
+    {
+      "name": "Epicure-Backend",
+      "script": "./server.js",
+      "env": {
+        "NODE_ENV": "staging"
+      }
     }
+  ],
+  "deploy": {
+    "staging": {
+      "user": "ubuntu",
+      "host": ["ec2-16-171-161-251.eu-north-1.compute.amazonaws.com"],
+      "ref": "origin/dev",
+      "repo": "git@github.com:RomiKMoveo/Epicure-Backend.git",
+      "path": "/home/ubuntu/epicure/server/Epicure-Backend",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "post-deploy": "export NODE_ENV=staging MONGO_DB_URL_CONNECTION=mongodb+srv://romik:l5BSwPrYVn9AxPkr@mongodbexercises.sstxokq.mongodb.net/Epicure && pm2 startOrRestart ecosystem.json --env staging",
+      "pre-deploy-local": "echo 'Deploying code to servers'",
+      "env": {
+        "NODE_ENV": "staging"
+      }
+    }
+  }
 }
+
