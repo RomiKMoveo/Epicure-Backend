@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "Epicure-Backend",
-      "script": "./server.js",
+      "script": "./index.ts",
       "env": {
         "NODE_ENV": "staging"
       }
