@@ -26,9 +26,6 @@ async function startServer() {
     await initDB();
     //await loadData();
     app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-    });
-}
 async function initDB() {
     try {
         await mongoose_1.default.connect(mongoURI);
